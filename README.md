@@ -62,7 +62,7 @@ Hardware-Accelerated-Closed-Loop-PID-Control-System/
 
 ## Vivado Block Design
 
-![Vivado Block Design](hardware/block_design/design_1.png)
+![Vivado Block Design](hardware/block_design/blockdesign.png)
 
 ---
 
