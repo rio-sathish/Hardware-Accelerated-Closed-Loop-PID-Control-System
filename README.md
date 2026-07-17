@@ -1,38 +1,44 @@
 # Hardware-Accelerated Closed-Loop PID Control System
 
-A hardware/software co-design project implementing a **Closed-Loop PID Controller** on the **ZedBoard (Xilinx Zynq-7000 XC7Z020)**. The PID computation is accelerated using a custom **AXI4-Lite hardware IP**, while the control software is developed in **Vitis**.
+A hardware/software co-design project implementing a **Closed-Loop PID Controller** on the **ZedBoard (Xilinx Zynq-7000 XC7Z020)**. The PID computation is accelerated using a custom **AXI4-Lite Hardware IP**, while the control software is developed using **Xilinx Vitis**.
 
 ---
 
 ## Project Overview
 
-This project demonstrates hardware acceleration of a Proportional–Integral–Derivative (PID) controller using FPGA technology. A custom AXI4-Lite peripheral performs the PID computation, while the embedded software running on the processor configures the controller parameters and communicates with the hardware.
+This project demonstrates a hardware-accelerated Proportional–Integral–Derivative (PID) controller implemented on the ZedBoard FPGA platform. The PID algorithm is executed in custom FPGA hardware through an AXI4-Lite interface, while the embedded software configures the controller parameters and communicates with the hardware accelerator.
 
 ---
 
 ## Features
 
-- Hardware-accelerated PID controller
-- Custom AXI4-Lite IP core
+- Hardware-accelerated PID computation
+- Custom AXI4-Lite IP Core
 - Real-time closed-loop control
 - Embedded software developed in Vitis
-- Modular RTL design in Verilog
-- ZedBoard implementation
+- Modular Verilog RTL implementation
+- ZedBoard FPGA implementation
+- Memory-mapped register interface
+- OLED display support
 
 ---
 
 ## Hardware
 
-- ZedBoard (XC7Z020)
-- Xilinx Vivado 2025.1
-- Xilinx Vitis 2025.1
+- ZedBoard (Xilinx Zynq-7000 XC7Z020)
+- Vivado 2025.1
+- Vitis 2025.1
 
 ---
 
 ## Repository Structure
 
-```
+```text
 Hardware-Accelerated-Closed-Loop-PID-Control-System/
+│
+├── README.md
+├── LICENSE
+├── .gitignore
 │
 ├── docs/
 │   ├── Project_Report.pdf
@@ -47,7 +53,7 @@ Hardware-Accelerated-Closed-Loop-PID-Control-System/
 │   │   └── zedboard.xdc
 │   │
 │   └── block_design/
-│       ├── design_1.png
+│       ├── blockdesign.png
 │       └── README.md
 │
 ├── vitis/
@@ -56,6 +62,32 @@ Hardware-Accelerated-Closed-Loop-PID-Control-System/
 │   └── README.md
 │
 └── images/
+    └── output.png
+```
+
+---
+
+# System Architecture
+
+```
+          +-----------------------------+
+          |        Vitis Software       |
+          |      (Embedded C Code)      |
+          +-------------+---------------+
+                        |
+                  AXI4-Lite Interface
+                        |
+                        ▼
+        +-------------------------------+
+        |     Custom PID Hardware IP    |
+        | (Verilog RTL Implementation)  |
+        +-------------------------------+
+                        |
+                        ▼
+               Control Effort Output
+                        |
+                        ▼
+               OLED Display / GPIO
 ```
 
 ---
@@ -66,38 +98,48 @@ Hardware-Accelerated-Closed-Loop-PID-Control-System/
 
 ---
 
+## Project Output
+
+The following image shows the hardware running successfully on the ZedBoard.
+
+![Project Output](images/output.png)
+
+---
+
 ## Hardware Design
 
 The hardware subsystem consists of:
 
-- Custom AXI4-Lite PID IP
-- AXI Interconnect
+- Custom AXI4-Lite PID Controller IP
 - Processor subsystem
-- Clock and Reset logic
-- GPIO interfaces
-- Memory-mapped registers for PID parameters
+- AXI Interconnect
+- Clock and Reset Logic
+- GPIO Interface
+- Memory-mapped PID Registers
+- OLED Display Interface
 
 ---
 
 ## Software
 
-The Vitis application:
+The Vitis application performs the following operations:
 
 - Initializes the hardware platform
-- Configures PID gains
-- Writes parameters through AXI4-Lite
+- Configures PID parameters
+- Writes PID gains through AXI4-Lite
 - Reads the computed control effort
-- Implements the closed-loop control algorithm
+- Displays output on the OLED
+- Executes the closed-loop control algorithm
 
 ---
 
 ## Technologies Used
 
 - Verilog HDL
-- Xilinx Vivado
-- Xilinx Vitis
-- AXI4-Lite Protocol
 - Embedded C
+- AXI4-Lite Protocol
+- Xilinx Vivado 2025.1
+- Xilinx Vitis 2025.1
 - FPGA Hardware Acceleration
 
 ---
@@ -106,7 +148,7 @@ The Vitis application:
 
 The complete project report is available in:
 
-```
+```text
 docs/Project_Report.pdf
 ```
 
@@ -117,8 +159,9 @@ docs/Project_Report.pdf
 - Floating-point PID implementation
 - AXI Stream interface
 - DMA support
-- Real-time sensor integration
-- Hardware optimization for lower latency
+- Sensor integration
+- Performance optimization
+- Real-time data logging
 
 ---
 
@@ -126,7 +169,8 @@ docs/Project_Report.pdf
 
 **Sathish M**
 
-Electronics and Communication Engineering  
+Electronics and Communication Engineering
+
 PSG College of Technology
 
 GitHub: https://github.com/rio-sathish
